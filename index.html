@@ -7,138 +7,217 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #003366; /* Màu xanh Bách Khoa */
+            --primary-color: #003366;
             --gold: #D4AF37;
-            --text-white: #ffffff;
+            --bg-light: #f5f8fc;
         }
 
         body {
             margin: 0;
-            padding: 0;
             font-family: 'Montserrat', sans-serif;
-            background: #0f0f0f;
-            color: var(--text-white);
-            text-align: center;
-            overflow-x: hidden;
+            background: var(--bg-light);
+            color: #333;
         }
 
+        /* Layout chia đôi */
+        .main-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            gap: 40px;
+        }
+
+        /* Cột bên trái: Form xác nhận */
+        .rsvp-column {
+            flex: 1;
+            min-width: 350px;
+            text-align: left;
+        }
+
+        .rsvp-form {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 40px;
+        }
+
+        /* Cột bên phải: Thư mời cũ của bạn */
+        .invite-column {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .invite-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-right: 5px solid var(--gold);
+            box-sizing: border-box;
+        }
+
+        /* Form styling */
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 8px; color: var(--primary-color); }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .radio-group { display: flex; gap: 20px; margin-bottom: 15px; }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover { background: var(--gold); }
+
+        /* Các phần cũ giữ nguyên hoặc tinh chỉnh nhẹ */
         .hero {
-            height: 100vh;
+            height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1523050335392-93851179ae22?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); /* Thay link ảnh của Kiệt vào đây */
-            background-size: cover;
-            background-position: center;
+            background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('your-image.jpg');
+            background-size: cover; text-align: center;
         }
+        .countdown { display: flex; gap: 15px; margin-top: 20px; }
+        .time-box { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+        .time-box span { display: block; font-size: 1.5rem; font-weight: bold; }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 0;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            color: var(--gold);
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            font-weight: 300;
-            margin-top: 10px;
-        }
-
-        .countdown {
-            display: flex;
-            gap: 20px;
-            margin-top: 50px;
-        }
-
-        .time-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            min-width: 80px;
-            border-bottom: 3px solid var(--gold);
-        }
-
-        .time-box span {
-            display: block;
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        .info-section {
-            padding: 80px 20px;
-            background: #ffffff;
-            color: #333;
-        }
-
-        .btn-rsvp {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 15px 40px;
-            background: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: 0.3s;
-            font-weight: bold;
-        }
-
-        .btn-rsvp:hover {
-            background: var(--gold);
-            transform: scale(1.05);
-        }
-
-        #map-link {
-            color: var(--primary-color);
-            text-decoration: underline;
+        @media (max-width: 850px) {
+            .main-container { flex-direction: column-reverse; }
+            .invite-column { align-items: center; text-align: center; }
+            .invite-card { border-right: none; border-bottom: 5px solid var(--gold); }
         }
     </style>
 </head>
 <body>
 
-    <section class="hero">
-        <p style="letter-spacing: 3px;">KỸ SƯ CÔNG NGHỆ & TỰ ĐỘNG HÓA</p>
-        <h1>NGUYỄN GIA KIỆT</h1>
-        <p class="subtitle">Trân trọng mời bạn đến dự Lễ Tốt Nghiệp</p>
-        
-        <div class="countdown" id="timer">
-            </div>
-    </section>
+<section class="hero">
+    <h1>NGUYỄN GIA KIỆT</h1>
+    <p class="subtitle">Lễ Tốt Nghiệp Kỹ Sư Công Nghệ & Tự Động Hóa</p>
+    <div class="countdown" id="timer"></div>
+</section>
 
-    <section class="info-section">
-        <h2>THÔNG TIN CHI TIẾT</h2>
-        <p><b>Thời gian:</b> 08:30 AM - Ngày 05/05/2026</p>
-        <p><b>Địa điểm:</b> Đại học Bách Khoa - ĐHQG TP.HCM</p>
-        <p><b>Tọa độ kỹ sư:</b> <a id="map-link" href="https://maps.app.goo.gl/oY7t8zG5J7N2" target="_blank">Xem trên Google Maps</a></p>
-        
-        <p style="max-width: 600px; margin: 40px auto; line-height: 1.6;">
-            Sau 4 năm nỗ lực với những dòng code và mạch điện, Kiệt đã chính thức cán đích. Sự hiện diện của bạn là niềm vinh dự lớn nhất đối với Kiệt trong ngày trọng đại này!
-        </p>
+<div class="main-container">
+    <div class="rsvp-column">
+        <div class="rsvp-form">
+            <h2 style="color: var(--primary-color);">Xác Nhận Tham Dự</h2>
+            <form id="attendance-form">
+                <div class="form-group">
+                    <label>Bạn sẽ đến chứ?</label>
+                    <div class="radio-group">
+                        <label style="font-weight: normal;"><input type="radio" name="attendance" value="Có" checked onclick="toggleForm(true)"> Chắc chắn rồi!</label>
+                        <label style="font-weight: normal;"><input type="radio" name="attendance" value="Không" onclick="toggleForm(false)"> Tiếc quá, mình bận rồi</label>
+                    </div>
+                </div>
 
-        <a href="https://zalo.me/0xxxxxxxxx" class="btn-rsvp">XÁC NHẬN THAM DỰ (ZALO)</a>
-    </section>
+                <div id="name-group" class="form-group">
+                    <label>Tên của bạn là gì?</label>
+                    <input type="text" name="name" placeholder="Nhập tên của bạn..." required>
+                </div>
 
-    <script>
-        // Countdown Timer
-        const targetDate = new Date("May 5, 2026 08:30:00").getTime();
+                <div id="wish-group" class="form-group" style="display: none;">
+                    <label>Gửi lời chúc đến Kiệt</label>
+                    <textarea name="wishes" rows="4" placeholder="Viết lời chúc tại đây..."></textarea>
+                </div>
 
-        setInterval(function() {
-            const now = new Date().getTime();
-            const diff = targetDate - now;
+                <button type="submit" class="btn-submit" id="submit-btn">GỬI XÁC NHẬN</button>
+            </form>
+            <p id="success-msg" style="display:none; color: green; font-weight: bold; margin-top: 20px;">Cảm ơn bạn đã phản hồi! ❤️</p>
+        </div>
+    </div>
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    <div class="invite-column">
+        <div style="text-align: right; margin-bottom: 30px;">
+            <h2>THÔNG TIN CHI TIẾT</h2>
+            <p><b>Thời gian:</b> 16:30 | 23/04/2026</p>
+            <p><b>Địa điểm:</b> Đại học Bách Khoa TP.HCM</p>
+        </div>
 
-            document.getElementById("timer").innerHTML = `
-                <div class="time-box"><span>${days}</span>Ngày</div>
-                <div class="time-box"><span>${hours}</span>Giờ</div>
-                <div class="time-box"><span>${mins}</span>Phút</div>
-            `;
-        }, 1000);
-    </script>
+        <div class="invite-card">
+            <h3>Gửi những người bạn thân thiết</h3>
+            <p>Cảm ơn các bạn vì đã là một phần rực rỡ nhất trong thời sinh viên của tôi. Cùng đến nâng ly nhé!</p>
+        </div>
+
+        <div class="invite-card">
+            <h3>Gửi các Anh/Chị hướng dẫn</h3>
+            <p>Sự nhiệt tình và tâm huyết của mọi người đã giúp em hình thành bản lĩnh kỹ sư như ngày hôm nay.</p>
+        </div>
+
+        <div class="invite-card">
+            <h3>Gửi gia đình thân yêu</h3>
+            <p>Cột mốc này là món quà con muốn dành tặng cho tình yêu thương của gia đình.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Logic hiện/ẩn ô nhập liệu
+    function toggleForm(isAttending) {
+        document.getElementById('name-group').style.display = isAttending ? 'block' : 'block'; // Luôn hiện tên để biết ai chúc
+        document.getElementById('wish-group').style.display = isAttending ? 'none' : 'block';
+        document.querySelector('input[name="name"]').required = true;
+    }
+
+    // Logic gửi dữ liệu về Google Sheets
+    const scriptURL = 'DÁN_LINK_WEB_APP_URL_CỦA_BẠN_VÀO_ĐÂY';
+    const form = document.getElementById('attendance-form');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        document.getElementById('submit-btn').disabled = true;
+        document.getElementById('submit-btn').innerText = "Đang gửi...";
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                form.style.display = 'none';
+                document.getElementById('success-msg').style.display = 'block';
+            })
+            .catch(error => {
+                alert('Có lỗi xảy ra, Kiệt ơi!');
+                document.getElementById('submit-btn').disabled = false;
+            });
+    });
+
+    // Countdown logic (giữ nguyên của Kiệt)
+    const targetDate = new Date("April 23, 2026 16:30:00").getTime();
+    setInterval(function() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById("timer").innerHTML = `
+            <div class="time-box"><span>${days}</span>Ngày</div>
+            <div class="time-box"><span>${hours}</span>Giờ</div>
+            <div class="time-box"><span>${mins}</span>Phút</div>
+        `;
+    }, 1000);
+</script>
+
 </body>
 </html>
