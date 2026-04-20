@@ -131,7 +131,7 @@
                     <label>Bạn sẽ đến chứ?</label>
                     <div class="radio-group">
                         <label style="font-weight: normal;"><input type="radio" name="attendance" value="Có" checked onclick="toggleForm(true)"> Chắc chắn rồi!</label>
-                        <label style="font-weight: normal;"><input type="radio" name="attendance" value="Không" onclick="toggleForm(false)"> Tiếc quá, mình bận rồi</label>
+                        <label style="font-weight: normal;"><input type="radio" name="attendance" value="Không" onclick="toggleForm(false)"> Mình xin lỗi tại thứ 5</label>
                     </div>
                 </div>
 
@@ -156,6 +156,7 @@
             <h2>THÔNG TIN CHI TIẾT</h2>
             <p><b>Thời gian:</b> 16:30 | 23/04/2026</p>
             <p><b>Địa điểm:</b> Đại học Bách Khoa TP.HCM</p>
+            <p><b>Địa chỉ:</b> 268 Lý Thường Kiệt, Quận 10, TP.HCM</p>
         </div>
 
         <div class="invite-card">
@@ -184,7 +185,7 @@
     }
 
     // Logic gửi dữ liệu về Google Sheets
-    const scriptURL = 'DÁN_LINK_WEB_APP_URL_CỦA_BẠN_VÀO_ĐÂY';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwIZT0GemPRCpP0NG4-c1F0ruORDgs0o0Dt-EtJVZFJqCa5c5aQNwmPuLYfV9umawbpJA/exec';
     const form = document.getElementById('attendance-form');
 
     form.addEventListener('submit', e => {
